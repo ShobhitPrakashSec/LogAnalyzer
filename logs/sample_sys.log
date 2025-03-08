@@ -1,0 +1,20 @@
+Feb 26 10:00:01 myserver kernel: [12345.678] CPU temperature high
+Feb 26 10:00:02 myserver systemd[1]: Started Apache Web Server.
+Feb 26 10:00:03 myserver sshd[2345]: Failed password for invalid user admin from 192.168.1.100 port 22 ssh2
+Feb 26 10:00:05 myserver kernel: [12346.123] Disk I/O error on /dev/sda1
+Feb 26 10:00:07 myserver systemd[1]: Stopped MySQL database server.
+Feb 26 10:00:10 myserver cron[5678]: Running daily cleanup script.
+Feb 26 10:00:12 myserver kernel: [12347.456] Network adapter eth0 down
+Feb 26 10:00:15 myserver systemd[1]: Started Network Manager.
+Feb 26 10:00:17 myserver sshd[2345]: Accepted password for user root from 192.168.1.200 port 22 ssh2
+Feb 26 10:00:20 myserver systemd[1]: Restarting SSH service.
+Feb 26 10:00:22 myserver kernel: [12348.789] USB device disconnected.
+Feb 26 10:00:25 myserver systemd[1]: Stopped Logging Service.
+Feb 26 10:00:27 myserver kernel: [12349.012] New PCI device detected.
+Feb 26 10:00:30 myserver cron[5678]: Weekly backup started.
+Feb 26 10:00:32 myserver systemd[1]: Started Firewall Service.
+Feb 26 10:00:35 myserver kernel: [12350.345] High memory usage detected.
+Feb 26 10:00:37 myserver systemd[1]: Stopped Nginx Web Server.
+Feb 26 10:00:40 myserver sshd[2345]: Connection closed by 192.168.1.150 port 22
+Feb 26 10:00:42 myserver kernel: [12351.678] CPU load exceeding threshold.
+Feb 26 10:00:45 myserver systemd[1]: Started Backup Service.
