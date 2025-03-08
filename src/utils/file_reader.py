@@ -49,10 +49,9 @@ def filter_log_by_timestamp(log_lines, start_time=None, end_time=None):
     - list: Filtered log entries.
     """
     filtered_logs = []
-    timestamp_pattern = re.compile(r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})")
 
     for line in log_lines:
-        match = timestamp_pattern.search(line)
+        match = re.search(r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})", line)
         if match:
             log_time = datetime.strptime(match.group(1), "%Y-%m-%d %H:%M:%S")
             
@@ -60,3 +59,12 @@ def filter_log_by_timestamp(log_lines, start_time=None, end_time=None):
                 filtered_logs.append(line)
 
     return filtered_logs
+
+def filter_log_by_keyword(log_lines, keyword):
+    """
+    Filters logs that contain a specific keyword.
+    """
+    if not keyword:
+        return log_lines  # No filtering needed
+
+    return [line for line in log_lines if keyword.lower() in line.lower()]
