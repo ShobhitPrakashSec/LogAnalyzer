@@ -7,19 +7,35 @@ def detect_log_type(log_lines):
     Detects the log file type based on its content.
     Returns 'web_server', 'system', 'application', or 'unknown'.
     """
-    web_server_pattern = re.compile(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} - (GET|POST|PUT|DELETE)")
-    system_pattern = re.compile(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} - (ERROR|WARNING|INFO)")
-    application_pattern = re.compile(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} - (APP|DB|API)")
+    web_server_patterns = [
+        r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} - (GET|POST|PUT|DELETE)",
+        r"\b(GET|POST|PUT|DELETE) /[^\s]+ HTTP/\d\.\d\b"
+    ]
+    system_patterns = [
+        r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} - (ERROR|WARNING|INFO|DEBUG|CRITICAL)",
+        r"\b(ERROR|WARNING|INFO|DEBUG|CRITICAL):"
+    ]
+    application_patterns = [
+        r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} - (APP|DB|API)",
+        r"\b(APP|DB|API):"
+    ]
 
+    scores = {"web_server": 0, "system": 0, "application": 0}
+    
     for line in log_lines:
-        if web_server_pattern.search(line):
-            return "web_server"
-        elif system_pattern.search(line):
-            return "system"
-        elif application_pattern.search(line):
-            return "application"
+        for pattern in web_server_patterns:
+            if re.search(pattern, line):
+                scores["web_server"] += 1
+        for pattern in system_patterns:
+            if re.search(pattern, line):
+                scores["system"] += 1
+        for pattern in application_patterns:
+            if re.search(pattern, line):
+                scores["application"] += 1
+                
+    best_match = max(scores, key=scores.get)
 
-    return "unknown"
+    return best_match if scores[best_match] > 0 else "unknown"
 
 def read_log_file(file_path):
     """
