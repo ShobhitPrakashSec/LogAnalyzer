@@ -5,7 +5,10 @@ from datetime import datetime
 # Add the src directory to Python's module search path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
-from utils.file_reader import filter_log_by_timestamp, read_log_file, filter_log_by_keyword 
+from utils.file_reader import (
+    filter_log_by_timestamp, read_log_file,
+    filter_log_by_keyword, categorize_logs_by_level 
+)
 
 # Ask the user to enter the full log file path
 log_file_path = input("Enter the full path of the log file: ").strip()
@@ -34,6 +37,13 @@ log_lines = filter_log_by_timestamp(log_lines, start_time, end_time)
 # Ask user for keyword filtering
 keyword = input("Enter a keyword to filter logs (or press enter to skip): ").strip()
 log_lines = filter_log_by_keyword(log_lines, keyword)
+
+# Apply log level filtering
+log_level = input("Enter a log level to filter logs (or press enter to skip): ").strip().upper()
+categorized_logs = categorize_logs_by_level(log_lines, keyword if keyword else None)
+
+# Ensure log_lines remains a list
+log_lines = categorized_logs.get(log_level, []) if log_level else log_lines
 
 # Print logs
 if log_lines:

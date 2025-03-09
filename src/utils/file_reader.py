@@ -68,3 +68,22 @@ def filter_log_by_keyword(log_lines, keyword):
         return log_lines  # No filtering needed
 
     return [line for line in log_lines if keyword.lower() in line.lower()]
+
+LOG_LEVELS = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+
+def categorize_logs_by_level(log_lines, keyword=None):
+    """
+    Categorizes log entries by their log level and applies keyword filtering if provided.
+    Returns a dictionary where keys are log levels and values are lists of log entries.
+    """
+    categorized_logs = {level: [] for level in LOG_LEVELS}
+    
+    for line in log_lines:
+        for level in LOG_LEVELS:
+            if f"{level}:" in line:
+                if keyword is None or keyword.lower() in line.lower():  # Apply keyword filter
+                    categorized_logs[level].append(line)
+                break
+    
+    return categorized_logs
+
